@@ -21,7 +21,7 @@ module.exports.policies = {
 
   '*': true,
 
-  'PostController': {
+  'PostQuestions': {
     '*': 'isAuthenticated'
   },
 
