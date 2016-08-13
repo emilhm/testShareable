@@ -21,6 +21,7 @@
     "grunt-sync": "0.5.2",
     "include-all": "~0.1.6",
     "jsonwebtoken": "^7.1.9",
+    "lodash": "^4.15.0",
     "passport": "~0.2.1",
     "passport-local": "~1.0.0",
     "rc": "1.0.1",

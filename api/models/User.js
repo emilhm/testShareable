@@ -21,10 +21,6 @@ module.exports = {
     email: {
       type: 'email',
       unique: true,
-    },
-    questions: {
-      collection: 'questions',
-      via: 'user'
     }
   },
   beforeCreate: function(user, cb) {

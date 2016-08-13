@@ -13,10 +13,16 @@ module.exports = {
       required: true
     },
     user: {
-      model: 'user'
+      model: 'User',
+      required: true
     },
     category: {
-      model: 'category'
+      model: 'Category',
+      required: true
+    },
+    answer: {
+      collection: 'Response',
+      via: 'questions'
     }
   }
 };

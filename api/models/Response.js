@@ -13,7 +13,12 @@ module.exports = {
       required: true
     },
     questions: {
-      model: 'questions'
+      model: 'Questions',
+      required: true
+    },
+    user: {
+      model:'User',
+      required: true
     }
   }
 };
