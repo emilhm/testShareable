@@ -45,5 +45,5 @@ module.exports = {
         return res.jsonp(question);
       });
     });
-  };
+  }
 };
