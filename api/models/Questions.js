@@ -6,7 +6,6 @@
  */
 
 module.exports = {
-
   attributes: {
     question:{
       type: 'string',
@@ -23,6 +22,14 @@ module.exports = {
     answer: {
       collection: 'Response',
       via: 'questions'
+    },
+    getCantAnswer: function (){
+      return this.answer.length;
+    },
+    toJSON: function() {
+      var obj = this.toObject();
+      obj.cantAnswer = this.getCantAnswer();
+      return obj;
     }
   }
 };
