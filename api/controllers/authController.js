@@ -12,7 +12,7 @@ module.exports = {
 
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
-                return res.send({
+                return res.badRequest({
                     message: info.message,
                     user: user
                 });
@@ -30,6 +30,6 @@ module.exports = {
 
     logout: function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.send('logout')
     }
 };

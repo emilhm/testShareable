@@ -25,7 +25,7 @@ module.exports = {
         });
       },
       function(err, callback) {
-        questions.findOne({
+        Questions.findOne({
           id: data.questions
         }).exec(function(err, category) {
           if (err) {
@@ -42,7 +42,12 @@ module.exports = {
       if (err) return res.badRequest(err);
       Response.create(data).exec(function(err, question) {
         if (err) return res.badRequest(err);
-        return res.jsonp(question);
+        User.findOne({
+          id: question.user
+        }).exec(function(err, user) {
+          question.user = user;
+          return res.jsonp(question);
+        });
       });
     });
   }

@@ -20,7 +20,6 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-
     User.findOne({
       email: email
     }, function(err, user) {
