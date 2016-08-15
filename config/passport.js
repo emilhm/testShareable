@@ -1,7 +1,7 @@
 var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   bcrypt = require('bcrypt'),
-  jwt = require('jsonwebtoken');;
+  jwt = require('jsonwebtoken'), token;
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -37,14 +37,14 @@ passport.use(new LocalStrategy({
           return done(null, false, {
             message: 'Invalid Password'
           });
-        var token = jwt.sign({
-          id: user.id,
-        }, 'server secret');
         var returnUser = {
-          email: user.email,
-          createdAt: user.createdAt,
-          id: user.id,
-          token: token
+          user: {
+            email: user.email,
+            id: user.id,
+          },
+          token: jwtService.issue({
+            'id': user.id
+          })
         };
         return done(null, returnUser, {
           message: 'Logged In Successfully'
