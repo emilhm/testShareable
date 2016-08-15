@@ -32,7 +32,7 @@ module.exports = {
             callback(err, null);
           }
           if (!question) {
-            err = 'No existe categoria';
+            err = 'No existe pregunta';
             callback(err, question);
           }
           callback(null, question);
