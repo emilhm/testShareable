@@ -26,6 +26,15 @@ module.exports = {
 
   logout: function(req, res) {
     req.logout();
-    res.send('logout')
+    res.json(404, 'logout')
+  },
+  singup: function (req, res) {
+    User.create(req.allParams()).exec(function(err, user){
+      if(err) return res.badRequest(err);
+      user.token = jwtService.issue({
+        'id': user.id
+      });
+      res.send(user);
+    });
   }
 };
