@@ -23,12 +23,20 @@ module.exports = {
       collection: 'Response',
       via: 'questions'
     },
+    likes: {
+      collection: 'likes',
+      via: 'question'
+    },
     getCantAnswer: function (){
       return this.answer.length;
+    },
+    getCantlikes: function (){
+      return this.likes.length;
     },
     toJSON: function() {
       var obj = this.toObject();
       obj.cantAnswer = this.getCantAnswer();
+      obj.likes = this.getCantlikes();
       return obj;
     }
   }
