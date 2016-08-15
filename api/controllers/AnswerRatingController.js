@@ -42,7 +42,6 @@ module.exports = {
         }).exec(function(err, user) {
           if (err) {
             callback(err, null);
-            console.log(err);
           }
           if (!user) {
             err = 'No existe ese usuario';
