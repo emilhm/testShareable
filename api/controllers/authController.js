@@ -25,7 +25,7 @@ module.exports = {
 
   logout: function(req, res) {
     req.logout();
-    res.json(404, 'logout')
+    res.json(400, 'logout')
   },
   singup: function (req, res) {
     User.create(req.allParams()).exec(function(err, user){
