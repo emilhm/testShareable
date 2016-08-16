@@ -10,7 +10,7 @@ module.exports = {
   find: function(req, res) {
     var data = req.allParams();
     var token = req.headers.authorization;
-    Questions.findOne(data)
+    Questions.find(data)
     .populate('user')
     .populate('category')
     .populate('answer')

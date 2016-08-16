@@ -11,6 +11,10 @@ module.exports = {
       type: 'string',
       required: true
     },
+    message:{
+      type: 'string',
+      required: true
+    },
     user: {
       model: 'User',
       required: true
