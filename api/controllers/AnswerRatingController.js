@@ -8,6 +8,8 @@
 module.exports = {
   rating: function(req, res) {
     var data = req.allParams();
+    var token = req.headers.authorization;
+    var user;
     var vote = {
       'answer': data.answer
     };
@@ -28,9 +30,21 @@ module.exports = {
           callback(null, vote);
         });
       },
+      function(err, callback) {
+        jwtService.verify(token, function (err, token) {
+            user = token.id;
+            callback(null, vote);
+         });
+      },
     ], function(err, result) {
       if (err) return res.badRequest(err);
-      return res.jsonp(result);
+      AnswerRating.findOne({'answer': data.answer, 'user': user}).exec(function (err, answerResult) {
+        if (err) res.badRequest(err);
+        if (answerResult) {
+          result.voteUser = answerResult.vote;
+        }
+        return res.jsonp(result);
+      });
     });
   },
   create: function(req, res) {
@@ -80,15 +94,25 @@ module.exports = {
           });
         }
         if (answerRating) {
-          answerRating.vote = !answerRating.vote;
-          AnswerRating.update({
-            id: answerRating.id
-          }, answerRating).exec(function(err, answerRating) {
-            if (err) return res.badRequest(err);
-            return res.jsonp(answerRating);
-          });
-        }
-      })
+          if (answerRating.vote == (data.vote === "true")) {
+            AnswerRating.destroy({
+              answer: data.answer,
+              user: data.user
+            }).exec(function(err, answerRating) {
+              if (err) return res.badRequest(err);
+              return res.jsonp(answerRating);
+            });
+          }else{
+            answerRating.vote == !answerRating.vote;
+            AnswerRating.update({
+              id: answerRating.id
+            }, data).exec(function(err, answerRating) {
+              if (err) return res.badRequest(err);
+              return res.jsonp(answerRating);
+            });
+          };
+        };
+      });
     });
   }
 };

@@ -36,6 +36,9 @@ module.exports.policies = {
   'LikesController': {
     '*': 'isAuthenticated'
   },
+  'AnswerRatingController': {
+    '*': 'isAuthenticated'
+  },
 
   /***************************************************************************
    *                                                                          *

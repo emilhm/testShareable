@@ -7,6 +7,33 @@
 require('async');
 
 module.exports = {
+  find: function(req, res) {
+    var data = req.allParams();
+    var token = req.headers.authorization;
+    Questions.findOne(data)
+    .populate('user')
+    .populate('category')
+    .populate('answer')
+    .populate('likes')
+    .exec(function (err, result) {
+      if (err) return res.serverError(err);
+      var returnData = result;
+      jwtService.verify(token, function (err, token) {
+          data.user = token.id;
+          Likes.findOne(data).exec(function (err, like) {
+            if (err) return res.serverError(err);
+            if (!like) {
+              returnData.isLike = false;
+              return res.jsonp(returnData);
+            }
+            else {
+              returnData.isLike = true;
+              return res.jsonp(returnData);
+            }
+          });
+    });
+  })
+},
   create: function(req, res) {
     var data = req.allParams();
     async.waterfall([
