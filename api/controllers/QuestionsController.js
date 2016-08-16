@@ -17,21 +17,7 @@ module.exports = {
     .populate('likes')
     .exec(function (err, result) {
       if (err) return res.serverError(err);
-      var returnData = result;
-      jwtService.verify(token, function (err, token) {
-          data.user = token.id;
-          Likes.findOne(data).exec(function (err, like) {
-            if (err) return res.serverError(err);
-            if (!like) {
-              returnData.isLike = false;
-              return res.jsonp(returnData);
-            }
-            else {
-              returnData.isLike = true;
-              return res.jsonp(returnData);
-            }
-          });
-    });
+      return res.jsonp(result);
   })
 },
   create: function(req, res) {

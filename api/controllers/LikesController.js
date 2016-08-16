@@ -54,8 +54,7 @@ module.exports = {
 		      });
 				}
 				if (likes) {
-					likes.like = !likes.like;
-					Likes.update({id:likes.id},likes).exec(function(err, likes) {
+					Likes.destroy(likes).exec(function(err, likes) {
 						if (err) return res.badRequest(err);
 						return res.jsonp(likes);
 					});
